@@ -1,0 +1,11 @@
+CONST_SITE_SERVICE = ".telasocial.com"
+
+class MainPage(webapp.RequestHandler):
+  def get(self):
+
+    detecthost =  os.environ['HTTP_HOST']
+    detect_number =  detecthost.split(CONST_SITE_SERVICE)[0]
+
+    # then you serve the stuff for 487348748.telasocial.com
+
+
