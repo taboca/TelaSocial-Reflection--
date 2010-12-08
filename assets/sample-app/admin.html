@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+  </head>
+
+  <body>
+
+
+    <a href="{{ url }}">{{ url_linktext }}</a>
+
+    <h1>Host is: {{host}} </h1>
+
+    <form action="/create_profile" method="post">
+      <div><textarea name="content" rows="3" cols="60"></textarea></div>
+      <div><input type="text" name='phone' value="(650)555-2222"></div>
+      <div><input type="submit" value="Sign Guestbook"></div>
+    </form>
+
+
+  </body>
+</html>
+

@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="{{theme_id_base}}" />
+    <link type="text/css" rel="stylesheet" href="{{theme_id_tabs}}" />
+    <link type="text/css" rel="stylesheet" href="{{theme_id_button}}" />
+    <link type="text/css" rel="stylesheet" href="/style/site.css" />
+    <script language="JavaScript" src="./script/jquery.js" ></script>
+    <script src="/script/site.js" ></script>
+  </head>
+  <body>
+
+Maybe we can insert a template here or this itself can be a template. 
+
+
+      <h2 style='font-size:140%'>{{contact.shortname}}</h2>
+
+<h1> Also some images..?</h1>
+
+    {% for image in user_images %}
+        <img width="200" class='edit_site_image_thumb' src="/load_image?key={{image.key}}"></img>
+    {% endfor %}
+
+{{ contact.content|escape }}
+
+  </body>
+</html>
+

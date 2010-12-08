@@ -1,0 +1,168 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="{{theme_id_base}}" />
+    <link type="text/css" rel="stylesheet" href="{{theme_id_tabs}}" />
+    <link type="text/css" rel="stylesheet" href="{{theme_id_button}}" />
+    <link type="text/css" rel="stylesheet" href="/style/base.css" />
+    <script language="JavaScript" src="./script/jquery.js" ></script>
+    <script src="/script/site.js" ></script>
+  </head>
+
+  <body>
+
+<div id="backheader">
+<div id="topheader">
+
+<table id="tabs-header" border="0" cellpadding="0" cellmargin="0">
+<tr>
+<td align="right">
+<div class="tab"  id="quemsomos" ><a class="menu-link" href="{{url}}">{{url_linktext}}</a></div>
+</td>
+</tr>
+<tr>
+<td style='height:100px' >
+
+<h2 style="font-size:240%;margin-bottom:0">
+App
+</h2>
+Aplicação de adminstração e autoria de páginas 
+
+</td>
+
+<td colspan="3">
+</td>
+</tr>
+</table>
+
+
+<div class="content">
+
+<h1>Crie seu site:</h1>
+
+<p>You are about to create a kiosk web app. Please add your kiosk basic information. </p>
+
+<div class="edit_site_panel">
+
+<h3>Dados Gerais para sua Página</h3>
+
+    <form action="/site_criado" method="post">
+
+<table class='edit_site_form'>
+
+
+<tr> <td valign="top"  align="right"> Kiosk name </td> <td> <input type="text" name='shortname' value="2222" /> 
+</td> </tr>
+
+<tr> <td valign="top"  align="right"> Layout: </td> <td> 
+<select name="theme_id">
+ <option  value="layoutthemea">Layout Theme A</option>
+ <option  value="layoutthemeb">Layout Theme B</option>
+ <option  value="layoutthemec">Layout Theme C</option>
+ <option  value="layoutthemed">Layout Theme D</option>
+</select>
+<p>You can change the theme later.</p>
+</td> </tr>
+
+<tr> <td valign="top" align="right">Basic description  </td> <td> 
+  <textarea name="content" rows="4" cols="60"> </textarea>
+<p>You can change the theme later.</p>
+</td> </tr>
+
+</table>
+
+</div>
+
+<div class="edit_site_panel">
+
+<h3>Account data </h3>
+<table class='edit_site_form'>
+
+<tr> <td valign="top" align="right"> Your name:  </td> <td> <input type="text" size="60" name='name' value="Jose Matias" /> </td> </tr>
+<tr> <td valign="top" align="right">
+      <div><input type="submit" value="I agree with terms, create my kiosk"></div>
+  </td> <td> 
+As you click the button you agree with the terms. 
+</td>
+</tr>
+
+</table>
+
+
+
+
+</div>
+
+
+    </form>
+
+
+</div>
+
+</div>
+</div>
+
+
+
+
+<div class="section-shadowtop" ></div>
+
+<div id="bottomfooter">
+
+<table width="820" cellpadding="10" cellspacing="0">
+<tr>
+<td valign="top" >
+
+<a href='http://www.flickr.com/photos/vs/179057322/'>Imagem gráfica do fundo</a> disponível em Licença Creative Commons Share-alike 2.5, créditos por <a href='http://www.flickr.com/photos/vs/179057322/'>vsz</a> - alguns direitos reservados. 
+
+
+</td>
+<td valign="top" width="300" align="right">
+<a href="">Termos de Uso</a></li>
+</td>
+
+</tr>
+</table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div>
+  {% for contact in contacts %}
+     <div class='row'>
+      {% if contact.user %}
+        <b>{{ contact.user.nickname }}</b> site: 
+	<a href="/editar?site={{contact.number}}">Site candidato: {{contact.number}}</a>
+      {% else %}
+        Como anonimo: 
+      {% endif %}
+      <blockquote>{{ contact.content|escape }}</blockquote>
+    {% endfor %}
+     </div>
+
+  </div>
+
+  </body>
+</html>
+

@@ -1,0 +1,91 @@
+
+
+
+.alerts { 
+	border-top:5px solid rgb(200,200,0);
+	background-color:lightyellow;
+	padding:.5em;
+	color:black;
+} 
+
+.tab, .button { 
+	cursor:pointer ; 
+} 
+
+.alerts h3 { 
+	color:red;
+} 
+
+
+.button_action { 
+	padding:.5em;
+	border:1px solid red;
+} 
+
+.button_action:hover { 
+	background-color:lightyellow;
+} 
+
+.main_view_site_row { 
+	background-color:#eee;
+	margin:.2em;
+	padding:.5em;
+	font-size:110%;
+} 
+
+
+.edit_site_panel { 
+	border-top:10px solid #aaa;
+	background-color:#eee; 
+	margin-bottom:.5em;
+	margin-top:1em;
+} 
+
+.edit_site_panel h1,h2,h3 { 
+	margin:.5em;
+} 
+
+.edit_site_editpanel { 
+	padding:1em;
+	
+} 
+
+.edit_site_image_thumb { 
+	width:120px;
+} 
+
+
+.blogitem_date { 
+	background-color:rgb(255,230,230);;
+	color:#555;
+	padding:.5em;
+} 
+
+.blogitem_content { 
+	color:black;
+	padding:.5em;
+} 
+
+.edit_site_blogitem { 
+	margin-top:.5em;
+	width:100%;
+	border-top:1px solid rgb(255,230,230);
+} 
+
+.edit_site_form td, .edit_blog_form td { 
+	padding:.6em;	
+} 
+
+.edit_site_form input[type="text"], form[name="blog"] input[type="text"], form[name="blog"] textarea { 
+	font-size:110%;
+	padding:.5em;
+} 
+
+.edit_site_blog { 
+	background-color: rgb(250,210,210);
+}
+
+.edit_site_foto { 
+	background-color: rgb(210,250,210);
+}
+

@@ -1,0 +1,142 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="{{theme_id_base}}" />
+    <link type="text/css" rel="stylesheet" href="{{theme_id_tabs}}" />
+    <link type="text/css" rel="stylesheet" href="{{theme_id_button}}" />
+    <link type="text/css" rel="stylesheet" href="/style/base.css" />
+
+    <!-- this needs to be moved to a static host --> 
+
+    <script language="JavaScript" src="/script/jquery.js" ></script>
+    <script src="/script/site.js" ></script>
+  </head>
+
+  <body>
+
+<div id="backheader">
+<div id="topheader">
+
+<table id="tabs-header" border="0" cellpadding="0" cellmargin="0" >
+<tr>
+<td align="right" width="100%">
+        <b>Usuário:{{ contact_obj.user.nickname }}</b> 
+</td>
+<td valign="top">
+</td>
+<td valign="top">
+<div class="tab"  id="principal" ><a class="menu-link" href="/">Admin</a></div>
+</td>
+<td valign="top">
+<div class="tab"  id="quemsomos" ><a class="menu-link" href="{{url}}">{{url_linktext}}</a></div>
+</td>
+</tr>
+<tr>
+<td style='height:100px' >
+
+<h2 style="font-size:240%;margin-bottom:0">
+App to edit 
+</h2>
+Edit the kiosk from here. 
+
+</td>
+
+<td colspan="3">
+</td>
+</tr>
+</table>
+
+
+<div class="content" style='padding-top:2em'>
+
+
+<div class="alerts">
+<h3>Attention: This is admin ( http://admin.telasocial.com )</h3> 
+
+</div>
+	
+      {% if receipt_image %}
+	<div class="alerts">
+		Você enviou sua a foto com sucesso.
+		{{ receipt_image }}
+	</div>
+      {% endif %}
+
+    <div class='edit_site_panel edit_site_editpanel' >
+
+        <h1>{{contact_obj.name}}</h1>
+        <h2>Meu número:{{contact_obj.shortname}}</h2>
+        <h2>Your output viewable address : http://{{url_domain_public}}/show?k={{contact_obj.shortname}}</h2>
+        <blockquote>{{ contact_obj.content|escape }}</blockquote>
+
+   </div>    
+
+
+    <div class='edit_site_panel edit_site_editpanel edit_site_foto' >
+     <h3>Painél Foto: </h3>
+      {% for image in user_images %}
+      <img class='edit_site_image_thumb' src="/load_image?key={{image.key}}"></img>
+      {% endfor %}
+     <p>Clique no campo abaixo para escolher uma imagem do seu computador ( formato JPG é aceito ). Depois clique em enviar e aguarde até que esta página recarregue. </p>
+
+     <h3>Envie sua Foto:</h3>
+        <form name='imageupdate' method='post' action='/editar_imagem' enctype='multipart/form-data'>
+                <input type='file'   name='graphic' />
+                <input type='hidden' name='key' value='{{entry_key }}' />
+                <input type='submit' value='enviar' />
+        </form>
+    </div>
+
+ </div>
+</div>
+
+
+
+
+<div class="section-shadowtop" ></div>
+
+<div id="bottomfooter">
+
+<table width="820" cellpadding="10" cellspacing="0">
+<tr>
+<td valign="top" >
+
+<a href='http://www.flickr.com/photos/vs/179057322/'>Imagem gráfica do fundo</a> disponível em Licença Creative Commons Share-alike 2.5, créditos por <a href='http://www.flickr.com/photos/vs/179057322/'>vsz</a> - alguns direitos reservados. 
+
+
+</td>
+<td valign="top" width="300" align="right">
+<a href="">Termos de Uso</a></li>
+</td>
+
+</tr>
+</table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

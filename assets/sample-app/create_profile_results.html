@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="{{theme_id_base}}" />
+    <link type="text/css" rel="stylesheet" href="{{theme_id_tabs}}" />
+    <link type="text/css" rel="stylesheet" href="{{theme_id_button}}" />
+    <link type="text/css" rel="stylesheet" href="/style/base.css" />
+    <script language="JavaScript" src="./script/jquery.js" ></script>
+    <script src="/script/site.js" ></script>
+  </head>
+
+  <body>
+
+<div id="backheader">
+<div id="topheader">
+
+<table id="tabs-header" border="0" cellpadding="0" cellmargin="0">
+<tr>
+<td width="450">
+</td>
+
+<td valign="top">
+<div class="tab " id="index" ><a class="menu-link" href="/">Principal</a></div>
+</td>
+<td valign="top">
+</td>
+<td valign="top">
+<div class="tab"  id="quemsomos" ><a class="menu-link" href="{{url}}">{{url_linktext}}</a></div>
+</td>
+</tr>
+<tr>
+<td style='height:100px' >
+
+<h2 style="font-size:240%;margin-bottom:0">
+App
+</h2>
+Aplicação de adminstração e autoria de páginas 
+
+</td>
+
+<td colspan="3">
+</td>
+</tr>
+</table>
+
+
+<div class="content">
+
+<h2>Você criou sua conta de usuário. Comece agora a editar o seu site:</h2>
+
+<div style='text-align:center;margin-top:2em;'>
+    <a class='button_action' href="{{url_main_admin}}" style='border:1px solid red;padding:1em;'>Editar seu site</a>
+</div>
+
+</div>
+</div>
+
+
+
+
+<div class="section-shadowtop" ></div>
+
+<div id="bottomfooter">
+
+<table width="820" cellpadding="10" cellspacing="0">
+<tr>
+<td valign="top" >
+
+<a href='http://www.flickr.com/photos/vs/179057322/'>Imagem gráfica do fundo</a> disponível em Licença Creative Commons Share-alike 2.5, créditos por <a href='http://www.flickr.com/photos/vs/179057322/'>vsz</a> - alguns direitos reservados. 
+
+
+</td>
+<td valign="top" width="300" align="right">
+<a href="">Termos de Uso</a></li>
+</td>
+
+</tr>
+</table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div>
+  {% for contact in contacts %}
+     <div class='row'>
+      {% if contact.user %}
+        <b>{{ contact.user.nickname }}</b> site: 
+	<a href="/editar?site={{contact.shortname}}">Site candidato: {{contact.number}}</a>
+      {% else %}
+        Como anonimo: 
+      {% endif %}
+      <blockquote>{{ contact.content|escape }}</blockquote>
+    {% endfor %}
+     </div>
+
+  </div>
+
+  </body>
+</html>
+

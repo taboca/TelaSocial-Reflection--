@@ -1,0 +1,29 @@
+
+.blogitem { 
+	border-bottom:1px solid #ccc;
+	border-top:1px solid #eee;
+	width:100%;
+ 	background-color:#eee;
+	padding-bottom:1em;	
+	padding:.5em;
+	margin-bottom:3px;
+}
+
+.blogitem * { 
+	color:black;
+}
+
+.blogitem_date { 
+	color:#aaa;
+	font-size:80% ! important;
+} 
+.blog { 
+} 
+
+.blogitem td { 
+	font-size:100%;
+} 
+.rosto { 
+   font-size:120%;
+} 
+

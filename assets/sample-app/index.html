@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="{{theme_id_base}}" />
+    <link type="text/css" rel="stylesheet" href="{{theme_id_tabs}}" />
+    <link type="text/css" rel="stylesheet" href="{{theme_id_button}}" />
+    <link type="text/css" rel="stylesheet" href="/style/base.css" />
+    <script language="JavaScript" src="./script/jquery.js" ></script>
+    <script src="/script/site.js" ></script>
+  </head>
+
+<body>
+
+<div id="backheader">
+<div id="topheader">
+
+<table id="tabs-header" border="0" cellpadding="0" cellmargin="0">
+<tr>
+<td width="100%">
+</td>
+<td valign="top">
+<div class="tab " id="index-help" ><a class="menu-link" href="/ajuda">Ajuda</a></div>
+</td>
+<td valign="top">
+</td>
+<td valign="top">
+<div class="tab"  id="quemsomos" ><a class="menu-link" href="{{url}}">{{url_linktext}}</a></div>
+</td>
+</tr>
+<tr>
+<td style='height:100px' >
+
+<h2 style="font-size:240%;margin-bottom:0">
+App
+</h2>
+Aplicação de adminstração e autoria de páginas 
+</td>
+
+<td colspan="3">
+</td>
+</tr>
+</table>
+
+
+<div class="content" style='padding-top:2em'>
+
+
+ {% if contacts %} 
+ <div>
+  {% for contact in contacts %}
+     <div class='main_view_site_row'>
+      {% if contact.user %}
+        <b>{{ contact.user.nickname }}</b> site:
+        <a href="/editar?site={{contact.shortname}}">Kiosk {{contact.shortname}}</a>
+        <a href="/show?k={{contact.shortname}}">Kiosk {{contact.shortname}}</a>
+      {% else %}
+        Como anonimo:
+      {% endif %}
+      <blockquote>{{ contact.content|escape }}</blockquote>
+     </div>
+    {% endfor %}
+  </div>
+ {% else %} 
+
+<table>
+<tr>
+<td valign="top">
+<h2 style='color:gray'>Mini host </h2>
+</td>
+<td valign="top">
+
+<div class="button button-green navigation" id="navigation-novo_site"  ><a href="/novo_site" class="navigation-link">Iniciar</a></div>
+
+</td>
+
+</tr>
+</table>
+
+ {% endif %}
+
+
+
+</div>
+</div>
+
+
+
+
+<div class="section-shadowtop" ></div>
+
+<div id="bottomfooter">
+
+<table width="820" cellpadding="10" cellspacing="0">
+<tr>
+<td valign="top" >
+
+<a href='http://www.flickr.com/photos/vs/179057322/'>Imagem gráfica do fundo</a> disponível em Licença Creative Commons Share-alike 2.5, créditos por <a href='http://www.flickr.com/photos/vs/179057322/'>vsz</a> - alguns direitos reservados. 
+
+
+</td>
+<td valign="top" width="300" align="right">
+<a href="">Termos de Uso</a></li>
+</td>
+
+</tr>
+</table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
+
