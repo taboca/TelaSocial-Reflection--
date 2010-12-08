@@ -42,9 +42,30 @@ class ChooseGrid(webapp.RequestHandler):
 		path = os.path.join(os.path.dirname(__file__), 'templates/choose-grid.html')
 		self.response.out.write(template.render(path, template_values))
 
+class EditKiosk(webapp.RequestHandler):
+	def get(self):
+
+		template_values = {
+			}
+
+		path = os.path.join(os.path.dirname(__file__), 'templates/choose-grid.html')
+		self.response.out.write(template.render(path, template_values))
+
+class ShowKiosk(webapp.RequestHandler):
+	def get(self, kiosk_number):
+
+		template_values = {
+			'kiosk_number': kiosk_number,
+			}
+
+		path = os.path.join(os.path.dirname(__file__), 'templates/show-kiosk.html')
+		self.response.out.write(template.render(path, template_values))
+
 application = webapp.WSGIApplication([
 										('/', MainPage),
-										('/choose_grid', ChooseGrid)
+										('/choose_grid', ChooseGrid),
+										('/edit_kiosk', EditKiosk),
+										(r'/kiosk/(.*)', ShowKiosk)
 									], debug=True)
 
 def main():
