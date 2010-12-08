@@ -1,0 +1,44 @@
+<html>
+<head>
+
+<style type="text/css">
+	/* */
+	#wrapper {
+		width: 800px;
+		height: 600px;
+	}
+	#wrapper .widget-container {
+		float: left;
+		width: 50%;	
+		height: 50%;
+	}
+</style>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript">
+	// register containers for widgets
+	var widgetContainers = ["container-1", "container-2", "container-3", "container-4"];
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#container-1').replaceWith('ONE');
+		$('#container-2').replaceWith('TWO');
+		$('#container-3').replaceWith('THREE');
+		$('#container-4').replaceWith('FOUR');
+	});
+	
+	
+</script>
+</head>
+
+
+<body>
+	<div id="wrapper">
+		<div id="container-1" class="widget-container">one</div>
+		<div id="container-2" class="widget-container">two</div>
+		<div id="container-3" class="widget-container">three</div>
+		<div id="container-4" class="widget-container">four</div>
+	</div>
+	
+
+</body>
+</html>

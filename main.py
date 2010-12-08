@@ -33,6 +33,27 @@ class MainPage(webapp.RequestHandler):
 		path = os.path.join(os.path.dirname(__file__), 'templates/index.html')
 		self.response.out.write(template.render(path, template_values))
 
+class DashBoard(webapp.RequestHandler):
+	def get(self):
+		user = users.get_current_user()
+		
+		if user:
+			url = users.create_logout_url(self.request.uri)
+			url_linktext = 'Logout'
+        
+		else:
+			url = users.create_login_url(self.request.uri)
+			url_linktext = 'Login'
+			self.redirect(users.create_login_url(self.request.uri))
+		
+		template_values = {
+			'url': url,
+			'url_linktext': url_linktext,
+			}
+
+		path = os.path.join(os.path.dirname(__file__), 'templates/dashboard.html')
+		self.response.out.write(template.render(path, template_values))
+
 class ChooseGrid(webapp.RequestHandler):
 	def get(self):
 		
@@ -63,6 +84,7 @@ class ShowKiosk(webapp.RequestHandler):
 
 application = webapp.WSGIApplication([
 										('/', MainPage),
+										('/dashboard', DashBoard),
 										('/choose_grid', ChooseGrid),
 										('/edit_kiosk', EditKiosk),
 										(r'/kiosk/(.*)', ShowKiosk)
