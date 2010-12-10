@@ -1,0 +1,22 @@
+<html>
+<head>
+	<title>TelaSocial - {% block title %}Base{% endblock %}</title>
+	
+	<link type="text/css" rel="stylesheet" href="/static/base.css" />
+	<script language="JavaScript" src="/static/jquery-1.4.4.min.js" ></script>
+</head>
+
+<body>
+	<div id="container">
+		<div id="header">
+			{% block header %}{% endblock %}
+		</div>
+    	<div id="content">
+    	    {% block content %}{% endblock %}
+    	</div>
+		<div id="footer">
+    	    {% block footer %}{% endblock %}
+    	</div>
+	</div>
+</body>
+</html>

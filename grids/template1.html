@@ -12,35 +12,32 @@
 		width: 50%;	
 		height: 50%;
 	}
-	#dummy-widget {
-		background-color: #FF0000;
-		border: #0000FF 1px solid;
-	}
 </style>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 
 <script type="text/javascript">
 //<![CDATA[
 
-	var widgetContainers = ["container-1", "container-2", "container-3", "container-4"];
-	var clockContainer = "container-1"
+	var widgetContainers	= ["container-1", "container-2", "container-3", "container-4"];
+	var clockContainer = "container-1";
+	var dummyContainer = "container-3";
 
 	$(document).ready(function() {
-		// $('#container-1').empty();
-		// $('#container-2').html('TWO');
-		// $('#container-3').html('THREE');
-		// $('#container-4').html('FOUR');
-		
 		clock_widget();
+		dummy_widget();
 	});
 	
 	function clock_widget() {
 		this.data = new Date();
 		var clock_time = this.data.toLocaleTimeString();
 		clock_time = clock_time.replace(/:..( [AP]M)$/, '$1');
-		
 		$('#'+clockContainer).html(clock_time); 
 		window.setTimeout(clock_widget, 1000);
+	}
+	
+	function dummy_widget() {
+		this.text = "HEHEHE";
+		$('#'+dummyContainer).html(text); 
 	}
 	
 	
@@ -51,9 +48,9 @@
 
 <body>
 	<div id="wrapper">
-		<div id="container-1" class="widget-container">one</div>
-		<div id="container-2" class="widget-container">two</div>
-		<div id="container-3" class="widget-container">three</div>
+		<div id="container-1" class="widget-container"></div>
+		<div id="container-2" class="widget-container">Kiosk number {{ kiosk_id }}</div>
+		<div id="container-3" class="widget-container">	</div>
 		<div id="container-4" class="widget-container">four</div>
 	</div>
 	

@@ -1,6 +1,14 @@
-DASHBOARD
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
 
+{% block content %}
+
+DASHBOARD
+<a href="{{ url }}">{{ url_linktext }}</a>
+hi, {{ nickname }}
 <a href="#">NEW KIOSK</a>
 
 YOUR KIOSKS:
+
+{% endblock content %}
 

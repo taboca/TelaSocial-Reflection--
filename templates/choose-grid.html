@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Choose Grid{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+
+Choose which grid you want to use:
+{% for grid in grids %}
+	<a href="">{{ grid.name }} - {{ grid.grid_id }}</a>
+{% endfor %}
+
+{% endblock content %}
+
+{% block footer %}{% endblock %}
