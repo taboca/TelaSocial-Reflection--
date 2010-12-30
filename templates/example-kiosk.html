@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>Kiosk by TelaSocial</title>
+
+<style type="text/css">
+	/* */
+	#wrapper {
+		width: 800px;
+		height: 600px;
+	}
+	#wrapper .widget-container {
+		float: left;
+		width: 50%;	
+		height: 50%;
+	}
+</style>
+<script src="/static/js/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/jquery-ui-1.8.7.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+	var widgetContainers	= ["container-1", "container-2", "container-3", "container-4"];
+	var clockContainer = "container-1";
+	var dummyContainer = "container-3";
+
+	$(document).ready(function() {
+		clock_config();
+		dummy_widget();
+		$('#'+clockContainer).html(clock_time);
+	});
+	
+	function clock_widget() {
+		this.data = new Date();
+		var clock_time = this.data.toLocaleTimeString();
+		clock_time = clock_time.replace(/:..( [AP]M)$/, '$1');
+		 
+		window.setTimeout(clock_config, 1000);
+	}
+	
+	function dummy_widget() {
+		this.text = "HEHEHE";
+		$('#'+dummyContainer).html(text); 
+	}
+	
+	
+//]]>	
+</script>
+</head>
+
+
+<body>
+	<div id="wrapper">
+		<div id="container-1" class="widget-container"></div>
+		<div id="container-2" class="widget-container">sdfd</div>
+		<div id="container-3" class="widget-container"></div>
+		<div id="container-4" class="widget-container">four</div>
+	</div>
+	
+
+</body>
+</html>
