@@ -1,8 +1,20 @@
-{% extends "base.html" %}
-{% block title %}Kiosk{% endblock %}
+<html>
+<head>
+<title>{{ kiosk.name }} by TelaSocial</title>
+<script src="/static/js/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/jquery-ui-1.8.7.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/widgets.js" type="text/javascript" charset="utf-8"></script>
 
-{% block content %}
+</head>
 
-	Kiosk number {{ kiosk_number }}
+<!-- {{ kiosk.content}} -->
 
-{% endblock content %}
+<body>
+	<div id="widget-area">
+		<div id="container-1" class="widget-container"></div>
+		<div id="container-2" class="widget-container"></div>
+		<div id="container-3" class="widget-container"></div>
+	</div>
+</body>
+</html>
+

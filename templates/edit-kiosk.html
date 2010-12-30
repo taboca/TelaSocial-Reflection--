@@ -1,14 +1,79 @@
 {% extends "base.html" %}
-{% block title %}Edit Kiosk{% endblock %}
-
-{% block header %}{% endblock %}
+{% block title %}Edit Kiosk - {{ kiosk.name }}{% endblock %}
 
 {% block content %}
 
-Add widgets to your kiosk
+<style>
+.ui-draggable-dragging {
+	background-color: #F00 !important;
+}
+.ui-draggable {
+	background-color: #0F0;
+	width: 150px;
+	height: 150px;
+	border: 1px solid gray;
+	position: absolute;
+	left: 30px;
+	top: 30px;
+}
+#widget-menu {
+	float: right;
+	width: 230px;
+}
 
-SAVE!
+#widget-area {
+	margin: 10px 0px;
+	border: 1px solid #000;
+	width: 720px;
+	height: 480px;
+	float: left;
+}
+</style>
+<script>
+	$(function() {
+		$('#clear').click(function() {
+			console.log('kiosk cleared');
+			$('#widget-area').empty();
+		});
+		$('#new-clock').click(function() {
+			console.log('new clock added');
+			var random_number = Math.floor(Math.random()*1000000);
+			$('#widget-area').append('<div id="clock-'+random_number+'" class="ui-draggable">clock-'+random_number+'</div>');
+			$( "#clock-"+random_number ).draggable({containment: 'parent', scroll: false, snap: true});
+		});
+		$('#new-feed').click(function() {
+			console.log('new feed added');
+		});
+		$('#new-video').click(function() {
+			console.log('new video added');
+		});
+		$('#new-flickr').click(function() {
+			console.log('new flickr added');
+		});
+		// $( ".draggable" ).draggable({containment: 'parent', scroll: false, snap: true});
+	});
+</script>
+<!-- Preview area -->
+<div id="widget-area">
+</div>
+<div id="widget-menu">
+	<ul>
+		<li><a href="#" id="clear">Clear Kiosk</a></li>
+		<li><a href="#" id="new-clock">Clock</a></li>
+		<li><a href="#" id="new-feed">Feed RSS</a></li>
+		<li><a href="#" id="new-video">Video Player</a></li>
+		<li><a href="#" id="new-flickr">Flickr Slideshow</a></li>
+	</ul>
+</div>
+<div id="widget-inspector">
+</div>	
+
+<form action="/save" method="post">
+	<input type="hidden" name="blurb" value="{{ kiosk.blurb }}">
+	<div><input type="text" name="name" value="{{ kiosk.name }}"></div>
+	<div><textarea name="content" rows="3" cols="60">{{ kiosk.content }}</textarea></div>
+	<div><input type="submit" value="Save Kiosk"></div>
+</form>
 
 {% endblock content %}
 
-{% block footer %}{% endblock %}

@@ -2,20 +2,28 @@
 <head>
 	<title>TelaSocial - {% block title %}Base{% endblock %}</title>
 	
-	<link type="text/css" rel="stylesheet" href="/static/base.css" />
-	<script language="JavaScript" src="/static/jquery-1.4.4.min.js" ></script>
+	<link type="text/css" rel="stylesheet" href="/static/css/base.css" />
+	<script src="/static/js/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/static/js/jquery-ui-1.8.7.min.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
 	<div id="container">
 		<div id="header">
-			{% block header %}{% endblock %}
+			<div id="logo"><a href="/"><img src="/static/imgs/minitelasocial-logo.png" width="400" height="97" alt="TelaSocial Logo"></a></div>
+			<div id="navigation">
+				<ul>
+					<li><a href="/dashboard">My account</a></li>
+					<li>(<a href="{{ url }}">Sign Out</a>)</li>
+				</ul>
+			</div>
 		</div>
     	<div id="content">
     	    {% block content %}{% endblock %}
     	</div>
+		<div style="clear:both"></div>
 		<div id="footer">
-    	    {% block footer %}{% endblock %}
+    	    Copyright © 2010-2011 Taboca 
     	</div>
 	</div>
 </body>

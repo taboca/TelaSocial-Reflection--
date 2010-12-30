@@ -1,5 +1,7 @@
+
 import os
 import pickle
+import random
 from google.appengine.api import users
 from google.appengine.ext import webapp
 from google.appengine.ext import db
@@ -7,20 +9,37 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp.util import login_required
 
-class Contact(db.Model):
-	user = db.UserProperty()
-	about = db.StringProperty(multiline=True)
-	date = db.DateTimeProperty(auto_now_add=True)
-	
-class Grid(db.Model):
-	name = db.StringProperty()
-	grid_id = db.StringProperty()
-	
-class Kiosk(db.Model):
-	creator	= db.ReferenceProperty(Contact,collection_name="creator_ref")
-	grid = db.ReferenceProperty(Grid,collection_name="grid_ref")
-	widgets = db.Blob() #pickled object for a dict like: my_widgets = {'container-1': 'clock', 'container-3': 'dumy'}
+# constantst for blurb generation, probabily there is a better way to make it
+BLURB_SIZE = 8
+BLURB_CHARS = "abcdefghijklmnopqrstuvxywzABCDEFGHIJKLMNOPQRSTUVXYWZ0123456789"
 
+#blurb generator, check duplicates
+def generate_blurb():
+	blurb = ''
+	for i in range(BLURB_SIZE):
+		blurb += random.choice(BLURB_CHARS)
+	if (Kiosk.all().filter("blurb = ", blurb).get() == blurb):
+		return generate_blurb()
+	else:
+		return blurb
+
+# User information
+# class Contact(db.Model):
+# 	user = db.UserProperty(required=True)
+# 	name = db.StringProperty()
+# 	about = db.StringProperty(multiline=True)
+# 	date = db.DateTimeProperty(auto_now_add=True)
+
+# Kiosk info and widgets used
+class Kiosk(db.Model):
+	blurb = db.StringProperty(required=True)
+	creator = db.UserProperty(required=True)
+	name = name = db.StringProperty(default="My Kiosk")
+	date = db.DateTimeProperty(auto_now_add=True)
+	content = db.StringProperty(multiline=True) # db.Blob() #pickled object with javascript and css content for kiosk rendering
+
+
+# Main Page
 class MainPage(webapp.RequestHandler):
 	def get(self):
 		user = users.get_current_user()
@@ -28,101 +47,97 @@ class MainPage(webapp.RequestHandler):
 			self.redirect('/dashboard')
 
 		url = users.create_login_url(self.request.uri)
-		url_linktext = 'Login'
 		
 		template_values = {
 			'url': url,
-			'url_linktext': url_linktext,
 			}
 
 		path = os.path.join(os.path.dirname(__file__), 'templates/index.html')
 		self.response.out.write(template.render(path, template_values))
 
+# Dashboard, logged user
 class DashBoard(webapp.RequestHandler):
 	@login_required
 	def get(self):
+		# login information
 		user = users.get_current_user()
-		user_nickname = user.nickname()
 		url = users.create_logout_url(self.request.uri)
-		url_linktext = 'Logout'
 		
-		kiosks = Kiosk.all()
-		kiosks.filter("creator.user =", user)
+		kiosks = Kiosk.all().filter("creator = ",users.get_current_user()).order('-date')
+		# contact.filter("user =", user)
+		# kiosks.filter("creator =", contact)
+		blurb = generate_blurb()
+
         
 		template_values = {
 			'kiosks': kiosks,
-			'nickname': user_nickname,
 			'url': url,
-			'url_linktext': url_linktext,
 			}
 
 		path = os.path.join(os.path.dirname(__file__), 'templates/dashboard.html')
 		self.response.out.write(template.render(path, template_values))
 
-class ChooseGrid(webapp.RequestHandler):
+# Handler to create a kiosk and redirect to Edit Kiosk Handler
+class CreateKiosk(webapp.RequestHandler):
 	@login_required
 	def get(self):
+		blurb = generate_blurb()
+		kiosk = Kiosk(creator=users.get_current_user(), blurb = blurb)
+		kiosk.put()
 		
-		grids = Grid.all()
-		
-		template_values = {
-			'grids': grids,
-			}
+		self.redirect('/edit/'+blurb)
 
-		path = os.path.join(os.path.dirname(__file__), 'templates/choose-grid.html')
-		self.response.out.write(template.render(path, template_values))
-
-# class CreateKiosk(webapp.RequestHandler):
-# 	@login_required
-# 	def post(self):
-		
-
-
+# Page where user is able to edit and add widgets
 class EditKiosk(webapp.RequestHandler):
 	@login_required
-	def get(self):
-
+	def get(self, kiosk_id):
+		#request kiosk
+		kiosk = Kiosk.all().filter("blurb =", kiosk_id).get()
+		# if there is no kiosk go to home page
+		if not kiosk:
+			self.redirect('/')
+		
 		template_values = {
+			'kiosk': kiosk,
 			}
 
-		path = os.path.join(os.path.dirname(__file__), 'templates/choose-grid.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates/edit-kiosk.html')
 		self.response.out.write(template.render(path, template_values))
-	
-	def post(self):
-		self.redirect('/dashboard')
 
+# Save edited kiosk
+class SaveKiosk(webapp.RequestHandler):
+	def post(self):
+		kiosk = Kiosk.all().filter("blurb =", self.request.get('blurb')).get()
+		kiosk.name = self.request.get('name')
+		kiosk.content = self.request.get('content')
+		kiosk.put()
+		# self.request.get('content')
+		self.redirect('/')
+
+# Kiosk, final view, public
 class ShowKiosk(webapp.RequestHandler):
 	def get(self, kiosk_id):
-		kiosk = Kiosk.all()
-		kiosk.filter("key_name =", kiosk_id)
-
-		template_id = kiosk.grid.grid_id
-		widgets = {}
+		#request kiosk
+		kiosk = Kiosk.all().filter("blurb =", kiosk_id).get()
+		# if there is no kiosk go to home page
+		if not kiosk:
+			self.redirect('/')
 		
 		template_values = {
-			'kiosk_id': kiosk_id,
+			'kiosk': kiosk,
 			}
 
-		path = os.path.join(os.path.dirname(__file__), 'grids/template'+ template_id +'.html')
+		path = os.path.join(os.path.dirname(__file__), 'templates/show-kiosk.html')
 		self.response.out.write(template.render(path, template_values))
 
-# just in development environment to insert template, must be moved to /admin
-class Feeder(webapp.RequestHandler):
-	@login_required
-	def get(self):
-
-		grid = Grid(name="4x4", grid_id="1")
-		grid.put()
-		
-		self.response.out.write("models created")
-
+# urlconf
 application = webapp.WSGIApplication([
 										('/', MainPage),
 										('/dashboard', DashBoard),
-										('/choose_grid', ChooseGrid),
-										('/edit_kiosk', EditKiosk),
+										('/create', CreateKiosk),
+										('/save', SaveKiosk),
+										(r'/edit/(.*)', EditKiosk),
 										(r'/kiosk/(.*)', ShowKiosk),
-										# ('/feeder', Feeder)
 									], debug=False)
 
 def main():

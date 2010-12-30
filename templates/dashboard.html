@@ -3,12 +3,19 @@
 
 {% block content %}
 
-DASHBOARD
-<a href="{{ url }}">{{ url_linktext }}</a>
-hi, {{ nickname }}
-<a href="#">NEW KIOSK</a>
+<div class="side">
+	<span class="button"><a href="/create">Create a Kiosk</a></span>
+</div>
 
-YOUR KIOSKS:
+<div div="your-kiosks">
+	<h2>Yor kiosks</h2>
+	
+	{% for kiosk in kiosks %}
+		(<a href="/edit/{{kiosk.blurb}}">Edit</a> - <a href="/kiosk/{{kiosk.blurb}}" target="_blank">View</a>) {{kiosk.name}} <br />
+	{% endfor %}
+	
+</div>
+
 
 {% endblock content %}
 
