@@ -4,17 +4,43 @@
 <script src="/static/js/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/js/jquery-ui-1.8.7.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/js/widgets.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/tagvisor.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+  function start() {
+
+	tv.add($('.slide'),"transition");
+	tv.play();
+
+  } 
+
+</script>
+
+
 
 </head>
 
-<!-- {{ kiosk.content}} -->
 
-<body>
+<body onload='start()'>
+
+
+<div id='viewport' class='viewport' style='margin:auto'>
+<div id='pagetranslate' >
+<div id='pagescale'>
+
+
+{{ kiosk.content}}
+
 	<div id="widget-area">
 		<div id="container-1" class="widget-container"></div>
 		<div id="container-2" class="widget-container"></div>
 		<div id="container-3" class="widget-container"></div>
 	</div>
+
+</div>
+</div>
+</div>
+
 </body>
 </html>
 

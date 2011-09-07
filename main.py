@@ -38,7 +38,6 @@ class Kiosk(db.Model):
 	date = db.DateTimeProperty(auto_now_add=True)
 	content = db.StringProperty(multiline=True) # db.Blob() #pickled object with javascript and css content for kiosk rendering
 
-
 # Main Page
 class MainPage(webapp.RequestHandler):
 	def get(self):
@@ -132,13 +131,13 @@ class ShowKiosk(webapp.RequestHandler):
 
 # urlconf
 application = webapp.WSGIApplication([
-										('/', MainPage),
-										('/dashboard', DashBoard),
-										('/create', CreateKiosk),
-										('/save', SaveKiosk),
-										(r'/edit/(.*)', EditKiosk),
-										(r'/kiosk/(.*)', ShowKiosk),
-									], debug=False)
+		('/', MainPage),
+		('/dashboard', DashBoard),
+		('/create', CreateKiosk),
+		('/save', SaveKiosk),
+		(r'/edit/(.*)', EditKiosk),
+		(r'/kiosk/(.*)', ShowKiosk),
+	], debug=False)
 
 def main():
 	run_wsgi_app(application)
